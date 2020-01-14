@@ -1,7 +1,9 @@
 - hosts: mail* 
+  vars:
+    mailcow_hostname: mail.example.com
   remote_user: ubuntu 
   environment:
-    MAILCOW_HOSTNAME: mail.{your-domain}
+    MAILCOW_HOSTNAME: "{{ mailcow_hostname }}"
     MAILCOW_TZ: UTC
 
   tasks:
