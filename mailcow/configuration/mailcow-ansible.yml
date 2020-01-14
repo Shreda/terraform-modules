@@ -1,0 +1,98 @@
+- hosts: mail* 
+  remote_user: ubuntu 
+  environment:
+    MAILCOW_HOSTNAME: mail.{your-domain}
+    MAILCOW_TZ: UTC
+
+  tasks:
+  - name: Update apt cache
+    apt:
+      update_cache: yes
+    become: yes
+
+  - name: Install OG
+    apt:
+      name: "{{ packages }}"
+      state: latest
+      update_cache: yes
+    become: yes
+    vars:
+      packages:
+      - tmux # tmux is a need
+      - build-essential
+      - git
+      - vim
+      - aptitude
+      - python # python 2
+      - python-pip # python 2 pip
+
+# Docker installation
+  - name: Install docker required system packages
+    become: yes
+    apt: name={{ item }} state=latest update_cache=yes
+    loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
+
+  - name: Add Docker GPG apt Key
+    become: yes
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add Docker Repository
+    become: yes
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu bionic stable
+      state: present
+
+  - name: Update apt and install docker-ce
+    become: yes
+    apt: update_cache=yes name=docker-ce state=latest
+
+  - name: Add ubuntu to docker group
+    become: yes
+    user:
+      name: ubuntu
+      append: yes
+      groups: docker
+
+# Install docker-compose
+  - name: Install docker-compose
+    get_url:
+      url: https://github.com/docker/compose/releases/download/1.25.0-rc2/docker-compose-Linux-x86_64
+      dest: /usr/local/bin/docker-compose
+      mode: 0755
+    become: yes
+
+# Install docker pip package
+  - name: Install docker python package
+    pip:
+      name: docker
+    become: yes
+
+
+  - name: Install docker-compose python package
+    pip:
+      name: docker-compose
+    become: yes
+
+# Clone Mailcow
+  - name: Clone Mailcow
+    git:
+      repo: https://github.com/mailcow/mailcow-dockerized
+      clone: yes
+      dest: /home/ubuntu/mailcow-dockerized
+
+# Run generate_config.sh
+  - name: Generate mailcow config
+    shell: ./generate_config.sh
+    args:
+      executable: /bin/sh
+      chdir: /home/ubuntu/mailcow-dockerized
+ 
+# Spin up services
+  - name: pull docker containers
+    docker_compose:
+      pull: yes
+      project_src: /home/ubuntu/mailcow-dockerized/
+    become: yes
+
