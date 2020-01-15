@@ -3,6 +3,11 @@ module "vpc" {
   source = "./vpc"
 }
 
+module "mailsg" {
+  source = "github.com/danielmoore-info/terraform-modules//aws/security-groups/mail-server"
+  vpc_id = module.vpc.vpc_id
+}
+
 module "mailcowservice" {
   source = "./services/mailserver"
   public_key = var.public_key
