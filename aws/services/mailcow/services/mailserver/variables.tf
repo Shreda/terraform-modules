@@ -12,3 +12,8 @@ variable "subnet_id" {
   type = "string"
   description = "Subnet to deploy into"
 }
+
+variable "security_groups" {
+  type = list(string)
+  description = "List of security groups for the instance"
+}

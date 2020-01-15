@@ -9,9 +9,7 @@ resource "aws_instance" "mailcow" {
   instance_type   = "t2.medium"
   key_name        = "${aws_key_pair.ec2key.key_name}"
   subnet_id       = "${var.subnet_id}"
-  security_groups = [
-    "${aws_security_group.mailcowinstancesg.id}" 
-  ]
+  security_groups = var.security_groups
 
   tags = {
     Name = "Mailcow"

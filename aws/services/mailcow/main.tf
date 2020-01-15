@@ -13,6 +13,9 @@ module "mailcowservice" {
   public_key = var.public_key
   vpc_id = module.vpc.vpc_id
   subnet_id = module.vpc.subnet_id
+  security_groups = [
+    module.mailsg.sg_id 
+  ]
 }
 
 module "mailcowdns" {
