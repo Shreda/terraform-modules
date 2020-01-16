@@ -10,9 +10,9 @@ module "sg" {
 }
 module "server" {
   source = "github.com/danielmoore-info/terraform-modules//aws/ec2/generic-ubuntu"
-  public_key = vars.public_key
+  public_key = var.public_key
   security_groups = [
     module.sg.sg_id 
   ]
-  name = vars.name
+  name = var.name
 }
