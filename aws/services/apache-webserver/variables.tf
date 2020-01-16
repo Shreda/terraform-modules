@@ -9,11 +9,6 @@ variable "public_key" {
   description = "Public key to install onto the instance"
 }
 
-variable "security_groups" {
-  type        = list(string)
-  description = "Security group to associate with the instance"
-}
-
 variable "name" {
   type        = "string"
   description = "Metadata name for the intance"
