@@ -9,7 +9,7 @@ resource "aws_instance" "ec2instance" {
   security_groups = var.security_groups
 
   tags = {
-    Name = vars.name 
+    Name = var.name 
   }
 }
 
