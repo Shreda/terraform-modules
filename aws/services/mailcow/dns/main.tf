@@ -52,3 +52,13 @@ resource "aws_route53_record" "spfdns" {
   ]
 }
 
+resource "aws_route53_record" "dmarcdns" {
+  zone_id = "${data.aws_route53_zone.mailcowzonepublic.zone_id}"
+  name = "_dmarc"
+  type = "TXT"
+  ttl = 600
+  records = [ 
+    "v=DMARC1; p=reject; rua=mailto:mailauth-reports@${var.domain}"    
+  ]
+}
+
