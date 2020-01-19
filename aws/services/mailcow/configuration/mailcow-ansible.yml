@@ -5,6 +5,7 @@
   environment:
     MAILCOW_HOSTNAME: "{{ mailcow_hostname }}"
     MAILCOW_TZ: UTC
+    SHOW_DKIM_PRIV_KEYS: "true"
 
   tasks:
   - name: Update apt cache
