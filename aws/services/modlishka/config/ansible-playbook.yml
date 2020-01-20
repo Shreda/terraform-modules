@@ -23,9 +23,10 @@
       - certbot
       - python3-certbot-dns-route53
 
-  - name: Create .aws folder
-    copy:
-      dest: "/home/ubuntu/.aws/"
+  - name: Create .aws directory
+    file:
+      path: /home/ubuntu/.aws
+      state: directory
 
   - name: Add AWS CLI credentials
     copy:
