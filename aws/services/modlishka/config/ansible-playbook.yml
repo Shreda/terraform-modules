@@ -30,14 +30,13 @@
 
   - name: Create config directory
     file:
-      path: "{{ dirs }}"
+      path: "{{ item }}"
       state: directory
-    vars:
-      dirs:
-        - /home/ubuntu/letsencrypt/config
-        - /home/ubuntu/letsencrypt/log
-        - /home/ubuntu/letsencrypt/work
-        - /home/ubuntu/modlishka/
+    with_items:
+      - "/home/ubuntu/letsencrypt/config"
+      - "/home/ubuntu/letsencrypt/log"
+      - "/home/ubuntu/letsencrypt/work"
+      - "/home/ubuntu/modlishka/"
 
   - name: Add AWS CLI credentials
     copy:
