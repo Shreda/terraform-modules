@@ -10,6 +10,10 @@ module "dns" {
   domain = var.domain
 }
 
+module "iam" {
+  source = "./iam"
+}
+
 module "sg" {
   source = "github.com/danielmoore-info/terraform-modules//aws/security-groups/web-server-22-80-443"
   vpc_id = aws_default_vpc.default.id
