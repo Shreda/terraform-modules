@@ -1,4 +1,4 @@
-- hosts: mail* 
+- hosts: web* 
   remote_user: ubuntu 
 
   tasks:
