@@ -3,5 +3,5 @@ output "key_id" {
 }
 
 output "key_secret" {
-  value = aws_iam_access_key.r53userkey.secret"
+  value = aws_iam_access_key.r53userkey.secret
 }
