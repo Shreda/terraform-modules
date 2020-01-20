@@ -28,6 +28,16 @@
       path: /home/ubuntu/.aws
       state: directory
 
+  - name: Create config directory
+    file:
+      path: {{ dirs }}
+      state: directory
+    vars:
+      dirs:
+        - /home/ubuntu/letsencrypt/config
+        - /home/ubuntu/letsencrypt/log
+        - /home/ubuntu/letsencrypt/work
+
   - name: Add AWS CLI credentials
     copy:
       dest: "/home/ubuntu/.aws/credentials"
@@ -44,8 +54,7 @@
         region = ap-southeast-2
   
   - name: Get TLS certificate
-    shell: certbot certonly -d *.mycsronline.com --dns-route53 -m {{ email }} --agree-tos -n
+    shell: certbot certonly -d *.mycsronline.com --dns-route53 -m {{ email }} --agree-tos -n --logs-dir /home/ubuntu/letsencrypt/log --work-dir /home/ubuntu/letsencrypt/work --config-dir /home/ubuntu/letsencrypt/config
     args:
       executable: /bin/bash
-    become: yes
 
