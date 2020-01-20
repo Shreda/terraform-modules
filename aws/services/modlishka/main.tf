@@ -7,6 +7,7 @@ resource "aws_default_vpc" "default" {
 module "dns" {
   source = "./dns"
   public_ip = module.server.public_ip
+  domain = var.domain
 }
 
 module "sg" {
