@@ -30,7 +30,7 @@
 
   - name: Create config directory
     file:
-      path: {{ dirs }}
+      path: "{{ dirs }}"
       state: directory
     vars:
       dirs:
