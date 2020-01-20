@@ -37,6 +37,7 @@
         - /home/ubuntu/letsencrypt/config
         - /home/ubuntu/letsencrypt/log
         - /home/ubuntu/letsencrypt/work
+        - /home/ubuntu/modlishka
 
   - name: Add AWS CLI credentials
     copy:
@@ -65,3 +66,12 @@
       mode: 0755
     become: yes
 
+  - name: Download example google config
+    get_url:
+      url: https://raw.githubusercontent.com/drk1wi/Modlishka/master/templates/google.com_gsuite.json
+      dest: /home/ubuntu/modlishka/google.com.json
+
+  - name: Download example office config
+    get_url:
+      url: https://raw.githubusercontent.com/drk1wi/Modlishka/master/templates/office365.json
+      dest: /home/ubuntu/modlishka/office365.json
