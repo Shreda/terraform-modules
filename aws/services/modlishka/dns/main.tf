@@ -1,9 +1,9 @@
-data "aws_route53_zone" "mailcowzonepublic" {
+data "aws_route53_zone" "zone" {
   name = var.domain
 }
 
-resource "aws_route53_record" "mailcowdns" {
-  zone_id = "${data.aws_route53_zone.mailcowzonepublic.zone_id}"
+resource "aws_route53_record" "dns_A_record" {
+  zone_id = "${data.aws_route53_zone.zone.zone_id}"
   name    = "web.${var.domain}"
   type    = "A"
   ttl     = 300
