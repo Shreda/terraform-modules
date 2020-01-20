@@ -1,0 +1,40 @@
+- hosts: mail* 
+  remote_user: ubuntu 
+
+  tasks:
+  - name: Update apt cache
+    apt:
+      update_cache: yes
+    become: yes
+
+  - name: Install Packages
+    apt:
+      name: "{{ packages }}"
+      state: latest
+      update_cache: yes
+    become: yes
+    vars:
+      packages:
+      - tmux # tmux is a need
+      - build-essential
+      - git
+      - vim
+      - aptitude
+      - certbot
+      - python3-certbot-dns-route53
+
+  - name: Add AWS CLI credentials
+    copy:
+      dest: "/home/ubuntu/.aws/credentials"
+      content: |
+        [default]
+        aws_access_key_id = {{ key_id }}
+        aws_secret_access_key = {{ key_secret }}
+
+  - name: Add AWS CLI config
+    copy:
+      dest: "/home/ubuntu/.aws/config"
+      content: |
+        [default]
+        region = ap-southeast-2
+
