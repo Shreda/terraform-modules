@@ -37,7 +37,7 @@
         - /home/ubuntu/letsencrypt/config
         - /home/ubuntu/letsencrypt/log
         - /home/ubuntu/letsencrypt/work
-        - /home/ubuntu/modlishka
+        - /home/ubuntu/modlishka/
 
   - name: Add AWS CLI credentials
     copy:
@@ -75,3 +75,4 @@
     get_url:
       url: https://raw.githubusercontent.com/drk1wi/Modlishka/master/templates/office365.json
       dest: /home/ubuntu/modlishka/office365.json
+
