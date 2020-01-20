@@ -14,3 +14,8 @@ variable "name" {
   description = "Metadata name for the intance"
   default     = "Generic Ubuntu"
 }
+
+variable "domain" {
+  type = "string"
+  description = "name of the hosted zone. E.g example.com"
+}
