@@ -54,7 +54,7 @@
         region = ap-southeast-2
   
   - name: Get TLS certificate
-    shell: certbot certonly -d "*.web.mycsronline.com" --dns-route53 -m {{ email }} --agree-tos -n --logs-dir "/home/ubuntu/letsencrypt/log" --work-dir "/home/ubuntu/letsencrypt/work" --config-dir "/home/ubuntu/letsencrypt/config"
+    shell: certbot certonly -d "*.web.{{ domain }}" --dns-route53 -m {{ email }} --agree-tos -n --logs-dir "/home/ubuntu/letsencrypt/log" --work-dir "/home/ubuntu/letsencrypt/work" --config-dir "/home/ubuntu/letsencrypt/config"
     args:
       executable: /bin/bash
 
