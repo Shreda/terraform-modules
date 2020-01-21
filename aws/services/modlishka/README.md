@@ -7,6 +7,7 @@ Includes:
 - Server
 - DNS configuration
 - Security groups
+- TLS certificate
 
 ## Example Module Usage
 
