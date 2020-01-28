@@ -22,6 +22,7 @@
       - aptitude
       - certbot
       - python3-certbot-dns-route53
+      - jq
 
   - name: Create .aws directory
     file:
@@ -75,3 +76,22 @@
       url: https://raw.githubusercontent.com/drk1wi/Modlishka/master/templates/office365.json
       dest: /home/ubuntu/modlishka/office365.json
 
+  - name: Create JSON friendly private key
+    shell: awk '{printf "%s\\n", $0}' letsencrypt/config/live/web.{{ domain }}/privkey.pem > privkey.txt
+    args:
+      executable: /bin/bash
+
+  - name: Create JSON friendly cert
+    shell: awk '{printf "%s\\n", $0}' letsencrypt/config/live/web.{{ domain }}/fullchain.pem > fullchain.txt
+    args:
+      executable: /bin/bash
+
+  - name: Use jq to add cert and key to json template
+    shell: cat modlishka/office365.json | jq ".cert=\"$(cat fullchain.txt)\"" | jq ".certKey=\"$(cat privkey.txt)\"" | jq ".proxyDomain=\"web.{{ domain }}\""
+    args:
+      executable: /bin/bash
+
+  - name: Remove aws config
+    file: 
+      state: absent
+      path: /home/ubuntu/.aws
