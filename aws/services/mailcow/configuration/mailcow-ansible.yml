@@ -1,4 +1,4 @@
-- hosts: mail* 
+- hosts: "{{ mailcow_hostname }}"
   remote_user: ubuntu 
   environment:
     MAILCOW_HOSTNAME: "{{ mailcow_hostname }}"
