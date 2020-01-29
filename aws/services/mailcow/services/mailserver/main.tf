@@ -1,6 +1,5 @@
 resource "aws_key_pair" "ec2key" {
   public_key  = var.public_key
-  key_name    = "ec2key"
 }
 
 resource "aws_instance" "mailcow" {
