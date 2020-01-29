@@ -1,6 +1,4 @@
 - hosts: mail* 
-  vars:
-    mailcow_hostname: mail.example.com
   remote_user: ubuntu 
   environment:
     MAILCOW_HOSTNAME: "{{ mailcow_hostname }}"
