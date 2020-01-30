@@ -87,7 +87,7 @@
       executable: /bin/bash
 
   - name: Use jq to add cert and key to json template
-    shell: cat modlishka/office365.json | jq ".cert=\"$(cat fullchain.txt)\"" | jq ".certKey=\"$(cat privkey.txt)\"" | jq ".proxyDomain=\"web.{{ domain }}\""
+    shell: cat modlishka/office365.json | jq ".cert=\"$(cat fullchain.txt)\"" | jq ".certKey=\"$(cat privkey.txt)\"" | jq ".proxyDomain=\"web.{{ domain }}\"" > modlishka/template.json
     args:
       executable: /bin/bash
 
