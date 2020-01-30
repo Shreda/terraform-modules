@@ -26,4 +26,8 @@ module "mailcow" {
 }
 ```
 
-You should then run the provided ansible playbook against the new mail server.
+You should then run the provided ansible playbook against the new mail server (make sure to add the host to your /etc/ansible/hosts file).
+
+```bash
+ansible-playbook --private-key /path/to/key -e "mailcow_hostname=example.com" .terraform/modules/mailcow/aws/services/mailcow/configuration/mailcow-ansible.yml
+```
