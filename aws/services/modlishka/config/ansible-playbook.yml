@@ -1,4 +1,4 @@
-- hosts: {{ domain }} 
+- hosts: "{{ domain }}"
   remote_user: ubuntu 
 
   tasks:
