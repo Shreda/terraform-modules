@@ -18,6 +18,6 @@ resource "aws_route53_record" "dns_CNAME_record" {
   type    = "CNAME"
   ttl     = 300
   records = [
-    "web.${var.domain}" 
+    "${var.domain}" 
   ]
 }
