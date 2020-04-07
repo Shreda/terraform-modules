@@ -55,7 +55,7 @@
         region = ap-southeast-2
   
   - name: Get TLS certificate
-    shell: certbot certonly -d "*.web.{{ domain }}" --dns-route53 -m {{ email }} --agree-tos -n --logs-dir "/home/ubuntu/letsencrypt/log" --work-dir "/home/ubuntu/letsencrypt/work" --config-dir "/home/ubuntu/letsencrypt/config"
+    shell: certbot certonly -d "*.{{ domain }}" --dns-route53 -m {{ email }} --agree-tos -n --logs-dir "/home/ubuntu/letsencrypt/log" --work-dir "/home/ubuntu/letsencrypt/work" --config-dir "/home/ubuntu/letsencrypt/config"
     args:
       executable: /bin/bash
 
@@ -77,17 +77,17 @@
       dest: /home/ubuntu/modlishka/office365.json
 
   - name: Create JSON friendly private key
-    shell: awk '{printf "%s\\n", $0}' letsencrypt/config/live/web.{{ domain }}/privkey.pem > privkey.txt
+    shell: awk '{printf "%s\\n", $0}' letsencrypt/config/live/{{ domain }}/privkey.pem > privkey.txt
     args:
       executable: /bin/bash
 
   - name: Create JSON friendly cert
-    shell: awk '{printf "%s\\n", $0}' letsencrypt/config/live/web.{{ domain }}/fullchain.pem > fullchain.txt
+    shell: awk '{printf "%s\\n", $0}' letsencrypt/config/live/{{ domain }}/fullchain.pem > fullchain.txt
     args:
       executable: /bin/bash
 
   - name: Use jq to add cert and key to json template
-    shell: cat modlishka/office365.json | jq ".cert=\"$(cat fullchain.txt)\"" | jq ".certKey=\"$(cat privkey.txt)\"" | jq ".proxyDomain=\"web.{{ domain }}\"" > modlishka/template.json
+    shell: cat modlishka/office365.json | jq ".cert=\"$(cat fullchain.txt)\"" | jq ".certKey=\"$(cat privkey.txt)\"" | jq ".proxyDomain=\"{{ domain }}\"" > modlishka/template.json
     args:
       executable: /bin/bash
 
