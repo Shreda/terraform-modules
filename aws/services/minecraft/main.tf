@@ -1,3 +1,9 @@
+resource "aws_default_vpc" "default" {
+  tags = {
+    Name = "Default VPC"
+  }
+}
+
 module "sg" {
   source = "github.com/danielmoore-info/terraform-modules//aws/security-groups/minecraft"
   vpc_id = aws_default_vpc.default.id
