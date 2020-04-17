@@ -81,8 +81,8 @@
     get_url:
       url: https://raw.githubusercontent.com/danielmoore-info/terraform-modules/master/aws/services/minecraft/config/docker-compose.yml
       dest: /home/ubuntu/minecraft/docker-compose.yml
-      owner: daniel
-      group: daniel
+      owner: ubuntu
+      group: ubuntu
       mode: 0755    
  
 # Spin up services
