@@ -72,10 +72,15 @@
       name: docker-compose
     become: yes
 
+  - name: Create minecraft directory
+    file:
+      path: /home/ubuntu/minecraft
+      state: directory    
+
   - name: Download minecraft docker-compose
     get_url:
-      url: https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
-      dest: /tmp/install-zsh.sh
+      url: https://raw.githubusercontent.com/danielmoore-info/terraform-modules/master/aws/services/minecraft/config/docker-compose.yml
+      dest: /home/ubuntu/minecraft/docker-compose.yml
       owner: daniel
       group: daniel
       mode: 0755    
@@ -84,6 +89,6 @@
   - name: pull docker containers
     docker_compose:
       pull: yes
-      project_src: /home/ubuntu/mailcow-dockerized/
+      project_src: /home/ubuntu/minecraft/
     become: yes
 
